@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<configuration>
+	<statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+
+	<conversionRule conversionWord="wEx" converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter" />
+
+	<property name="FILE_LOG_PATTERN" value="${FILE_LOG_PATTERN:-%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %logger : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+	<property name="FILE_LOG_CHARSET" value="${FILE_LOG_CHARSET:-${file.encoding:-UTF-8}}"/>
+
+  <springProfile name="prod">
+
+  	<logger name="org.jboss" level="WARN" />
+	<logger name="com.zaxxer.hikari" level="WARN"/>
+	<logger name="org.hibernate" level="WARN"/>
+	<logger name="org.springframework" level="WARN"/>
+	<logger name="_org.springframework" level="WARN" />
+
+	<property name="LOG_FILE" value="/var/log/wildfly/springbootapp.log"/>
+	 <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	   <encoder>
+		<pattern>${FILE_LOG_PATTERN}</pattern>
+		<charset>${FILE_LOG_CHARSET}</charset>
+	   </encoder>
+	   <file>${LOG_FILE}</file>
+	   <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+	     <fileNamePattern>${LOG_FILE}.%d</fileNamePattern>
+	   </rollingPolicy>
+	 </appender>
+    <logger name="org.springboot.app" level="WARN" additivity="false">
+        <appender-ref ref="FILE" />
+    </logger>  	
+    <logger name="org.springboot.app.AppApplication" level="INFO" additivity="false">
+        <appender-ref ref="FILE" />
+    </logger>  	
+    <root level="WARN">
+      <appender-ref ref="FILE" />
+    </root>
+  </springProfile>
+  
+</configuration>
