@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import org.springboot.app.dto.CountryDto;
 import org.springboot.app.entity.Country;
 
 /**
@@ -34,6 +35,7 @@ public class CountryTest {
 		assertEquals("UNA DESCRIPCION1", country.getDescription());
 	}
 
+	@SuppressWarnings("unlikely-arg-type")
 	@Test
 	public void testCountryEqualsMethod() {
 		this.logger.info("===> testCountryEqualsMethod()");
@@ -41,10 +43,12 @@ public class CountryTest {
 		Country country2 = new Country(100L, "UN NOMBRE", "UNA DESCRIPCIONN");
 		Country country3 = new Country(100L, "UN NOMBREE", "UNA DESCRIPCIONN");
 		Country country4 = new Country(101L, "UN NOMBREE", "UNA DESCRIPCIONN");
+		CountryDto countryDto = new CountryDto("UN NOMBRE", "UNA DESCRIPCION");
 		assertEquals(true, country1.equals(country1));
 		assertEquals(false, country1.equals(country2));
 		assertEquals(false, country1.equals(country3));
 		assertEquals(false, country1.equals(country4));
+		assertEquals(false, country1.equals(countryDto));
 		assertEquals(false, country1.equals(null));
 	}
 

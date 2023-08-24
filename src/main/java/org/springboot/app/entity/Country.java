@@ -1,5 +1,12 @@
 package org.springboot.app.entity;
 
+import static org.springboot.app.constants.Constants.MSG_COUNTRY_NAME_IS_NULL;
+import static org.springboot.app.constants.Constants.MSG_COUNTRY_NAME_IS_EMPTY;
+import static org.springboot.app.constants.Constants.MSG_COUNTRY_NAME_IS_BLANK;
+import static org.springboot.app.constants.Constants.MSG_COUNTRY_DESC_IS_NULL;
+import static org.springboot.app.constants.Constants.MSG_COUNTRY_DESC_IS_EMPTY;
+import static org.springboot.app.constants.Constants.MSG_COUNTRY_DESC_IS_BLANK;
+
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -36,15 +43,15 @@ public class Country {
 	private Long id;
 
 	@Column(name = "NAME")
-	@NotNull(message = "Name is null")
-	@NotEmpty(message = "Name is empty")
-	@NotBlank(message = "Name is blank")
+	@NotNull(message = MSG_COUNTRY_NAME_IS_NULL)
+	@NotEmpty(message = MSG_COUNTRY_NAME_IS_EMPTY)
+	@NotBlank(message = MSG_COUNTRY_NAME_IS_BLANK)
 	private String name;
 
 	@Column(name = "DESCRIPTION")
-	@NotNull(message = "Description is null")
-	@NotEmpty(message = "Description is empty")
-	@NotBlank(message = "Description is blank")
+	@NotNull(message = MSG_COUNTRY_DESC_IS_NULL)
+	@NotEmpty(message = MSG_COUNTRY_DESC_IS_EMPTY)
+	@NotBlank(message = MSG_COUNTRY_DESC_IS_BLANK)
 	private String description;
 
 	public Country(CountryDto dto) {
@@ -54,7 +61,7 @@ public class Country {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (Objects.isNull(obj)) {
+		if (Objects.isNull(obj) || !(obj instanceof Country)) {
 			return false;
 		}
 		final Country country = (Country) obj;

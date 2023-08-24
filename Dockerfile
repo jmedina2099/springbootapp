@@ -7,6 +7,7 @@ RUN chown jboss /var/log/wildfly
 USER jboss
 ADD target/springbootapp.war /opt/jboss/wildfly/standalone/deployments/
 
+#ENV JAVA_OPTS "-Dspring.profiles.active=dev"
 ENV JAVA_OPTS "-Dspring.profiles.active=prod"
 RUN echo $JAVA_OPTS
 

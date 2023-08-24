@@ -4,6 +4,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.when;
 
+import static org.springboot.app.constants.Constants.MSG_CANT_RETURN_COUNTRIES;
+import static org.springboot.app.constants.Constants.MSG_CANT_RETURN_COUNTRY;
+import static org.springboot.app.constants.Constants.MSG_CANT_SAVE_COUNTRY;
+import static org.springboot.app.constants.Constants.MSG_CANT_UPDATE_COUNTRY;
+import static org.springboot.app.constants.Constants.MSG_CANT_DELETE_COUNTRY;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -45,7 +51,7 @@ public class CountryControllerWithMockTest extends AppTestHelper {
 
 	@MockBean
 	private CountryService countryService;
-	
+
 	public CountryControllerWithMockTest() {
 	}
 
@@ -53,8 +59,7 @@ public class CountryControllerWithMockTest extends AppTestHelper {
 	public void testFindAllCountriesWithException() {
 		this.logger.info("===> testFindAllCountriesWithException()");
 		try {
-			when(countryService.findAll())
-					.thenThrow(new ServiceException("No fue posible regresar el listado de paises."));
+			when(countryService.findAll()).thenThrow(new ServiceException(MSG_CANT_RETURN_COUNTRIES));
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
@@ -75,8 +80,7 @@ public class CountryControllerWithMockTest extends AppTestHelper {
 	public void testFindCountriesWithExceptionById() {
 		this.logger.info("===> testFindCountriesWithExceptionById()");
 		try {
-			when(countryService.findById(1L))
-					.thenThrow(new ServiceException("No fue posible regresar el pais."));
+			when(countryService.findById(1L)).thenThrow(new ServiceException(MSG_CANT_RETURN_COUNTRY));
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
@@ -101,7 +105,7 @@ public class CountryControllerWithMockTest extends AppTestHelper {
 		countryDto.setDescription("DESCRIPTION");
 		Country country = new Country(countryDto);
 		try {
-			when(countryService.create(country)).thenThrow(new ServiceException("No fue posible guardar el pais."));
+			when(countryService.create(country)).thenThrow(new ServiceException(MSG_CANT_SAVE_COUNTRY));
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
@@ -125,8 +129,7 @@ public class CountryControllerWithMockTest extends AppTestHelper {
 		countryDto.setDescription("DESCRIPTION");
 		Country country = new Country(countryDto);
 		try {
-			when(countryService.update(country, 1L))
-					.thenThrow(new ServiceException("No fue posible modificar el pais."));
+			when(countryService.update(country, 1L)).thenThrow(new ServiceException(MSG_CANT_UPDATE_COUNTRY));
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
@@ -146,7 +149,7 @@ public class CountryControllerWithMockTest extends AppTestHelper {
 	public void testDeleteCountryWithException() {
 		this.logger.info("===> testDeleteCountryWithException()");
 		try {
-			when(countryService.delete(1L)).thenThrow(new ServiceException("No fue posible eliminar el pais."));
+			when(countryService.delete(1L)).thenThrow(new ServiceException(MSG_CANT_DELETE_COUNTRY));
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}

@@ -29,7 +29,7 @@ public class CountryDto {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (Objects.isNull(obj)) {
+		if (Objects.isNull(obj) || !(obj instanceof CountryDto)) {
 			return false;
 		}
 		final CountryDto countryDto = (CountryDto) obj;

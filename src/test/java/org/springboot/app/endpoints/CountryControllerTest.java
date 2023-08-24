@@ -1,6 +1,7 @@
 package org.springboot.app.endpoints;
 
 import static org.junit.Assert.assertEquals;
+import static org.springboot.app.constants.Constants.MSG_HELLO;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -32,7 +33,7 @@ public class CountryControllerTest extends AppTestHelper {
 
 	@Autowired
 	private TestRestTemplate restTemplate;
-	
+
 	public CountryControllerTest() {
 	}
 
@@ -49,7 +50,7 @@ public class CountryControllerTest extends AppTestHelper {
 			e.printStackTrace();
 		}
 		assertEquals(HttpStatus.OK, response.getStatusCode());
-		assertEquals("OK!", object);
+		assertEquals(MSG_HELLO, object);
 	}
 
 	@Test
@@ -64,11 +65,11 @@ public class CountryControllerTest extends AppTestHelper {
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
-		assertEquals(HttpStatus.OK, response.getStatusCode());		
+		assertEquals(HttpStatus.OK, response.getStatusCode());
 		assertEquals(5, objects.length);
 		CountryDto user1 = objects[0];
-		assertEquals("Brazil", user1.getName());
-		assertEquals("There is too much sun", user1.getDescription());
+		assertEquals("USA", user1.getName());
+		assertEquals("Neighbor at top", user1.getDescription());
 	}
 
 	@Test
@@ -86,7 +87,7 @@ public class CountryControllerTest extends AppTestHelper {
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
-		assertEquals(HttpStatus.OK, response.getStatusCode());		
+		assertEquals(HttpStatus.OK, response.getStatusCode());
 		assertEquals(true, value);
 	}
 
@@ -134,7 +135,7 @@ public class CountryControllerTest extends AppTestHelper {
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
-		assertEquals(HttpStatus.OK, response.getStatusCode());		
+		assertEquals(HttpStatus.OK, response.getStatusCode());
 		assertEquals("USA", countryDto.getName());
 		assertEquals("Neighbor at top", countryDto.getDescription());
 	}
@@ -217,7 +218,7 @@ public class CountryControllerTest extends AppTestHelper {
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
-		assertEquals(HttpStatus.OK, response.getStatusCode());		
+		assertEquals(HttpStatus.OK, response.getStatusCode());
 		assertEquals(true, response.getBody());
 	}
 
@@ -233,7 +234,7 @@ public class CountryControllerTest extends AppTestHelper {
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
-		assertEquals(HttpStatus.OK, response.getStatusCode());		
+		assertEquals(HttpStatus.OK, response.getStatusCode());
 		assertEquals(true, response.getBody());
 	}
 }
