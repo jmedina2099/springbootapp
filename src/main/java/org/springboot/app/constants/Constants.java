@@ -27,7 +27,7 @@ public final class Constants {
 
 	public static final String MSG_HELLO = "OK!";
 
-	public static final String URI_COUNTRY_ENDPOINT_HELLO = "/";
+	public static final String URI_COUNTRY_ENDPOINT_HELLO = "/hello";
 	public static final String URI_COUNTRY_ENDPOINT_FIND = "/find";
 	public static final String URI_COUNTRY_ENDPOINT_FIND_BY_ID = "/findById/";
 	public static final String URI_COUNTRY_ENDPOINT_CREATE = "/create";

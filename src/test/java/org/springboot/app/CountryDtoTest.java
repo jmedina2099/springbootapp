@@ -27,11 +27,14 @@ public class CountryDtoTest {
 		final CountryDto countryDef = new CountryDto();
 		assertNull(countryDef.getName());
 		assertNull(countryDef.getDescription());
-		final CountryDto country = new CountryDto("UN NOMBRE", "UNA DESCRIPCION");
+		final CountryDto country = new CountryDto(1L,"UN NOMBRE", "UNA DESCRIPCION");
+		assertEquals(Long.valueOf(1L), country.getId());
 		assertEquals("UN NOMBRE", country.getName());
 		assertEquals("UNA DESCRIPCION", country.getDescription());
+		country.setId(2L);
 		country.setName("UN NOMBRE1");
 		country.setDescription("UNA DESCRIPCION1");
+		assertEquals(Long.valueOf(2L), country.getId());
 		assertEquals("UN NOMBRE1", country.getName());
 		assertEquals("UNA DESCRIPCION1", country.getDescription());
 	}
@@ -40,11 +43,11 @@ public class CountryDtoTest {
 	@Test
 	public void test2CountryDtoEqualsMethod() {
 		this.logger.info("===> testCountryDtoEqualsMethod()");
-		final CountryDto country1 = new CountryDto("UN NOMBRE", "UNA DESCRIPCION");
-		final CountryDto country2 = new CountryDto("UN NOMBRE", "UNA DESCRIPCIONN");
-		final CountryDto country3 = new CountryDto("UN NOMBREE", "UNA DESCRIPCIONN");
-		final CountryDto country4 = new CountryDto("UN NOMBREE", "UNA DESCRIPCIONN");
-		final Country country5 = new Country(100L, "UN NOMBRE", "UNA DESCRIPCION");
+		final CountryDto country1 = new CountryDto(1L,"UN NOMBRE", "UNA DESCRIPCION");
+		final CountryDto country2 = new CountryDto(2L,"UN NOMBRE", "UNA DESCRIPCIONN");
+		final CountryDto country3 = new CountryDto(3L,"UN NOMBREE", "UNA DESCRIPCIONN");
+		final CountryDto country4 = new CountryDto(4L,"UN NOMBREE", "UNA DESCRIPCIONN");
+		final Country country5 = new Country(1L, "UN NOMBRE", "UNA DESCRIPCION");
 		assertEquals(true, country1.equals(country1));
 		assertNotEquals(true, country1.equals(country2));
 		assertNotEquals(true, country1.equals(country3));
@@ -56,8 +59,8 @@ public class CountryDtoTest {
 	@Test
 	public void test3CountryDtoHashcodeMethod() {
 		this.logger.info("===> testCountryDtoHashcodeMethod()");
-		CountryDto country = new CountryDto("UN NOMBRE", "UNA DESCRIPCION");
-		assertEquals(891002054, country.hashCode());
+		CountryDto country = new CountryDto(1L,"UN NOMBRE", "UNA DESCRIPCION");
+		assertEquals(891031845, country.hashCode());
 	}
 
 }

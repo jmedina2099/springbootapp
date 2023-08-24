@@ -1,0 +1,39 @@
+<div class="contentListado">
+    <div class="rowListado" *ngFor="let pais of paises; let i = index">
+        <div [className]="'span1'" [ngStyle]="{'border-top': i==0? '1px solid black': ''}" >
+            {{pais.name}}
+        </div>
+        <div [className]="'span2'" [ngStyle]="{'border-top': i==0? '1px solid black': ''}">
+            {{pais.description}}
+        </div>
+        <div [className]="'span3'" [ngStyle]="{'border-top': i==0? '1px solid black': ''}" >
+            <button (click)="openModalEdit(pais.id)">Editar</button>
+        </div>
+        <div [className]="'span4'"  [ngStyle]="{'border-top': i==0? '1px solid black': ''}" >
+            <button>Eliminar</button>
+        </div>
+    </div>
+</div>
+
+<jw-modal id="modal-1">
+    <h1 *ngIf="!isCreateModal">Editar el pais</h1>
+    <h1 *ngIf="isCreateModal">Alta de pais</h1>
+    <form>
+        <div class="modalForm">
+            <div [className]="'col1'">
+                <div [className]="'celda'">Name:</div>
+                <div [className]="'celda'">Descripcion:</div>
+                <div [className]="'celda'"><button (click)="save();">Guardar</button></div>
+            </div>
+            <div [className]="'col2'">
+                    <div [className]="'celda'">
+                        <input type="text" name="username2" [(ngModel)]="paisEditar.name"  autocomplete="off" size="20" maxlength="20" required/>
+                    </div>
+                    <div [className]="'celda'">
+                        <input type="text" name="description" [(ngModel)]="paisEditar.description" autocomplete="off" size="60" maxlength="60"/>
+                    </div>
+                    <div [className]="'celda'"><button (click)="closeModal('modal-1');">Cerrar</button></div>
+            </div>
+        </div>
+    </form>
+</jw-modal>

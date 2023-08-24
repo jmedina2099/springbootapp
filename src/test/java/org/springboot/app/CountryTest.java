@@ -44,7 +44,7 @@ public class CountryTest {
 		Country country2 = new Country(100L, "UN NOMBRE", "UNA DESCRIPCIONN");
 		Country country3 = new Country(100L, "UN NOMBREE", "UNA DESCRIPCIONN");
 		Country country4 = new Country(101L, "UN NOMBREE", "UNA DESCRIPCIONN");
-		CountryDto countryDto = new CountryDto("UN NOMBRE", "UNA DESCRIPCION");
+		CountryDto countryDto = new CountryDto(100L, "UN NOMBRE", "UNA DESCRIPCION");
 		assertEquals(true, country1.equals(country1));
 		assertNotEquals(true, country1.equals(country2));
 		assertNotEquals(true, country1.equals(country3));

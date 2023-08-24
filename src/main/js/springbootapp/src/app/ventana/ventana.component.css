@@ -1,0 +1,41 @@
+.contentListado {
+    margin: 10px;
+    width: 70%;
+}
+
+.rowListado {
+    display: flex;
+}
+
+.span1 {
+    width: 200px;
+    background-color: lightgray;
+    flex: 0 0 100px;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+    padding: 2px;
+}
+
+.span2 {
+    background-color: white;
+    flex: 1;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+    padding: 2px;
+}
+
+.span3 {
+    background-color: white;
+    flex-shrink: 2;
+    padding: 4px;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.span4 {
+    background-color: white;
+    flex-shrink: 2;
+    padding: 4px;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}

@@ -24,6 +24,8 @@
 		<sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 		<sonar.language>java</sonar.language>
 		<sonar.token>sqa_941de45730cf11137ce6bb26e66f68f680917bd1</sonar.token>
+		<frontend.dist.dir>${project.basedir}/src/main/js/springbootapp/dist</frontend.dist.dir>
+		<frontend.app.name>springbootapp</frontend.app.name>		
 	</properties>
 	<profiles>
 		<profile>
@@ -109,6 +111,22 @@
 							</resources>
 						</configuration>
 					</execution>
+					<execution>
+						<id>prepare-dist</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<skip>${skip.front}</skip>
+							<outputDirectory>${project.basedir}/target/classes</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${frontend.dist.dir}/${frontend.app.name}</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>					
 				</executions>
 			</plugin>
 			<plugin>

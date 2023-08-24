@@ -1,0 +1,58 @@
+/* MODAL STYLES
+-------------------------------*/
+jw-modal {
+    /* modals are hidden by default */
+    display: none;
+
+    .jw-modal {
+        /* modal container fixed across whole screen */
+        position: fixed;
+        inset: 0;
+
+        /* z-index must be higher than everything else on the page */
+        z-index: 10000;
+        
+        /* semi-transparent black background exposed by padding */
+        background-color: rgba(0, 0, 0, .75);
+        padding: 40px;
+
+        /* enables scrolling for tall modals */
+        overflow: auto;
+    }
+
+    .jw-modal-body {
+        padding: 20px;
+        background: #fff;
+        width: 50%;
+        margin: auto;
+    }
+}
+
+body.jw-modal-open {
+    /* body overflow is hidden to hide main scrollbar when modal window is open */
+    overflow: hidden;
+}
+
+.modalForm {
+    display: flex;
+}
+
+.col1 {
+    flex: 30%;
+    text-align: right;
+}
+
+.col2 {
+    flex: 70%;
+}
+
+.celda {
+    height: 30px;
+    padding: 0;
+    margin: 2px;
+}
+
+.col input {
+    width: 100%;
+    height: 24px;
+}

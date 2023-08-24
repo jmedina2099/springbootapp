@@ -31,3 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+src/main/js/springbootapp/node
+src/main/js/springbootapp/node_modules
+src/main/js/springbootapp/dist
+src/main/js/springbootapp/.angular
+src/main/js/springbootapp/.scannerwork
