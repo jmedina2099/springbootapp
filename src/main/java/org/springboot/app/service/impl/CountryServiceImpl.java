@@ -54,7 +54,7 @@ public class CountryServiceImpl implements CountryService {
 		return listado;
 	}
 
-	public Optional<CountryDto> findById(Long id) throws ServiceException {
+	public Optional<CountryDto> findById(@NotNull Long id) throws ServiceException {
 		this.logger.debug("===> processing findById()");
 		final Optional<Country> country = getById(id);
 		if (country.isEmpty()) {
@@ -63,7 +63,7 @@ public class CountryServiceImpl implements CountryService {
 		return Optional.of(new CountryDto(country.get()));
 	}
 
-	public boolean create(@Valid Country country) throws ServiceException {
+	public boolean create(@NotNull @Valid Country country) throws ServiceException {
 		this.logger.debug("===> processing create()");
 		try {
 			this.countryRepository.save(country);
@@ -74,7 +74,7 @@ public class CountryServiceImpl implements CountryService {
 		return true;
 	}
 
-	public boolean update(Country countryReq, @NotNull Long id) throws ServiceException {
+	public boolean update(@NotNull Country countryReq, @NotNull Long id) throws ServiceException {
 		this.logger.debug("===> processing update()");
 		final Optional<Country> countryFromDB = getById(id);
 		if (countryFromDB.isEmpty()) {
