@@ -23,6 +23,7 @@
 		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
 		<sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 		<sonar.language>java</sonar.language>
+		<sonar.token>sqa_941de45730cf11137ce6bb26e66f68f680917bd1</sonar.token>
 	</properties>
 	<profiles>
 		<profile>
