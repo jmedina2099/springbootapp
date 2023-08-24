@@ -1,15 +1,15 @@
 package org.springboot.app.endpoints;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
-
-import static org.springboot.app.constants.Constants.MSG_CANT_RETURN_COUNTRIES;
-import static org.springboot.app.constants.Constants.MSG_CANT_SAVE_COUNTRY;
-import static org.springboot.app.constants.Constants.MSG_CANT_RETURN_COUNTRY;
-import static org.springboot.app.constants.Constants.MSG_CANT_UPDATE_COUNTRY;
 import static org.springboot.app.constants.Constants.MSG_CANT_DELETE_COUNTRY;
+import static org.springboot.app.constants.Constants.MSG_CANT_RETURN_COUNTRIES;
+import static org.springboot.app.constants.Constants.MSG_CANT_RETURN_COUNTRY;
+import static org.springboot.app.constants.Constants.MSG_CANT_SAVE_COUNTRY;
+import static org.springboot.app.constants.Constants.MSG_CANT_UPDATE_COUNTRY;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -57,7 +57,7 @@ public class CountryServiceWithMockTest extends AppTestHelper {
 	}
 
 	@Test
-	public void testFindAllCountriesWithException() {
+	public void test1FindAllCountriesWithException() {
 		this.logger.info("===> testFindAllCountriesWithException()");
 		when(countryRepository.findAll()).thenThrow(new RuntimeException(MSG_CANT_RETURN_COUNTRIES));
 		String url = getUrlBase() + "/find";
@@ -74,7 +74,7 @@ public class CountryServiceWithMockTest extends AppTestHelper {
 	}
 
 	@Test
-	public void testCreateCountryWithException() {
+	public void test2CreateCountryWithException() {
 		this.logger.info("===> testCreateCountryWithException()");
 		CountryDto countryDto = new CountryDto();
 		countryDto.setName("NAME");
@@ -82,20 +82,20 @@ public class CountryServiceWithMockTest extends AppTestHelper {
 		Country country = new Country(countryDto);
 		when(countryRepository.save(country)).thenThrow(new RuntimeException(MSG_CANT_SAVE_COUNTRY));
 		String url = getUrlBase() + "/create";
-		ResponseEntity<Object> response = null;
-		Object object = null;
+		ResponseEntity<Boolean> response = null;
+		Boolean object = null;
 		try {
-			response = restTemplate.postForEntity(new URL(url).toString(), countryDto, Object.class);
+			response = restTemplate.postForEntity(new URL(url).toString(), countryDto, Boolean.class);
 			object = response.getBody();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
 		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
-		assertEquals(false, object);
+		assertFalse(object);
 	}
 
 	@Test
-	public void testFindCountriesWithExceptionById() {
+	public void test3FindCountriesWithExceptionById() {
 		this.logger.info("===> testFindCountriesWithExceptionById()");
 		when(countryRepository.findById(1L)).thenThrow(new RuntimeException(MSG_CANT_RETURN_COUNTRY));
 		String url = getUrlBase() + "/findById/1";
@@ -112,7 +112,7 @@ public class CountryServiceWithMockTest extends AppTestHelper {
 	}
 
 	@Test
-	public void testUpdateCountryWithExceptionById() {
+	public void test4UpdateCountryWithExceptionById() {
 		this.logger.info("===> testUpdateCountryWithExceptionById()");
 		CountryDto countryDto = new CountryDto();
 		countryDto.setName("NAME");
@@ -124,17 +124,19 @@ public class CountryServiceWithMockTest extends AppTestHelper {
 		String url = getUrlBase() + "/modify/1";
 		HttpEntity<CountryDto> httpEntity = new HttpEntity<>(countryDto);
 		ResponseEntity<Boolean> response = null;
+		Boolean object = null;
 		try {
 			response = restTemplate.exchange(new URL(url).toString(), HttpMethod.PUT, httpEntity, Boolean.class);
+			object = response.getBody();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
 		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
-		assertEquals(false, response.getBody());
+		assertFalse(object);
 	}
 
 	@Test
-	public void testDeleteCountryWithExceptionById() {
+	public void test5DeleteCountryWithExceptionById() {
 		this.logger.info("===> testDeleteCountryWithExceptionById()");
 		CountryDto countryDto = new CountryDto();
 		countryDto.setName("NAME");
@@ -145,13 +147,15 @@ public class CountryServiceWithMockTest extends AppTestHelper {
 		doThrow(new RuntimeException(MSG_CANT_DELETE_COUNTRY)).when(countryRepository).deleteById(1L);
 		String url = getUrlBase() + "/delete/1";
 		ResponseEntity<Boolean> response = null;
+		Boolean object = null;
 		try {
 			response = restTemplate.exchange(new URL(url).toString(), HttpMethod.DELETE, null, Boolean.class);
+			object = response.getBody();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
 		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
-		assertEquals(false, response.getBody());
+		assertFalse(object);
 	}
 
 }

@@ -84,10 +84,10 @@ public class CountryServiceImpl implements CountryService {
 		final String name = countryReq.getName();
 		final String desc = countryReq.getDescription();
 		if (Objects.nonNull(name) && !name.trim().isEmpty()) {
-			country.setName(name);
+			country.setName(name.trim());
 		}
 		if (Objects.nonNull(desc) && !desc.trim().isEmpty()) {
-			country.setDescription(desc);
+			country.setDescription(desc.trim());
 		}
 		try {
 			this.countryRepository.save(country);

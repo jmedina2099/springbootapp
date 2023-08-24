@@ -1,6 +1,7 @@
 package org.springboot.app;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,7 +21,7 @@ public class CountryTest {
 	private final Logger logger = LogManager.getLogger(CountryTest.class);
 
 	@Test
-	public void testCountryConstructorGettersAndSetters() {
+	public void test1CountryConstructorGettersAndSetters() {
 		this.logger.info("===> testCountryConstructorGettersAndSetters()");
 		Country country = new Country();
 		country = new Country(100L, "UN NOMBRE", "UNA DESCRIPCION");
@@ -37,7 +38,7 @@ public class CountryTest {
 
 	@SuppressWarnings("unlikely-arg-type")
 	@Test
-	public void testCountryEqualsMethod() {
+	public void test2CountryEqualsMethod() {
 		this.logger.info("===> testCountryEqualsMethod()");
 		Country country1 = new Country(100L, "UN NOMBRE", "UNA DESCRIPCION");
 		Country country2 = new Country(100L, "UN NOMBRE", "UNA DESCRIPCIONN");
@@ -45,15 +46,15 @@ public class CountryTest {
 		Country country4 = new Country(101L, "UN NOMBREE", "UNA DESCRIPCIONN");
 		CountryDto countryDto = new CountryDto("UN NOMBRE", "UNA DESCRIPCION");
 		assertEquals(true, country1.equals(country1));
-		assertEquals(false, country1.equals(country2));
-		assertEquals(false, country1.equals(country3));
-		assertEquals(false, country1.equals(country4));
-		assertEquals(false, country1.equals(countryDto));
-		assertEquals(false, country1.equals(null));
+		assertNotEquals(true, country1.equals(country2));
+		assertNotEquals(true, country1.equals(country3));
+		assertNotEquals(true, country1.equals(country4));
+		assertNotEquals(true, country1.equals(countryDto));
+		assertNotEquals(true, country1.equals(null));
 	}
 
 	@Test
-	public void testCountryHashcodeMethod() {
+	public void test3CountryHashcodeMethod() {
 		this.logger.info("===> testCountryHashcodeMethod()");
 		Country country = new Country(100L, "UN NOMBRE", "UNA DESCRIPCION");
 		assertEquals(891126984, country.hashCode());

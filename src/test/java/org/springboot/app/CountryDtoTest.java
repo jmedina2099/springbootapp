@@ -1,6 +1,8 @@
 package org.springboot.app;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNull;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,11 +22,11 @@ public class CountryDtoTest {
 	private final Logger logger = LogManager.getLogger(CountryDtoTest.class);
 
 	@Test
-	public void testCountryDtoConstructor() {
-		this.logger.info("===> testCountryDtoConstructor()");
+	public void test1CountryDtoConstructorGettersAndSetters() {
+		this.logger.info("===> testCountryDtoConstructorGettersAndSetters()");
 		final CountryDto countryDef = new CountryDto();
-		assertEquals(null, countryDef.getName());
-		assertEquals(null, countryDef.getDescription());
+		assertNull(countryDef.getName());
+		assertNull(countryDef.getDescription());
 		final CountryDto country = new CountryDto("UN NOMBRE", "UNA DESCRIPCION");
 		assertEquals("UN NOMBRE", country.getName());
 		assertEquals("UNA DESCRIPCION", country.getDescription());
@@ -36,23 +38,23 @@ public class CountryDtoTest {
 
 	@SuppressWarnings("unlikely-arg-type")
 	@Test
-	public void testCountryDtoEqualsMethod() {
+	public void test2CountryDtoEqualsMethod() {
 		this.logger.info("===> testCountryDtoEqualsMethod()");
-		CountryDto country1 = new CountryDto("UN NOMBRE", "UNA DESCRIPCION");
-		CountryDto country2 = new CountryDto("UN NOMBRE", "UNA DESCRIPCIONN");
-		CountryDto country3 = new CountryDto("UN NOMBREE", "UNA DESCRIPCIONN");
-		CountryDto country4 = new CountryDto("UN NOMBREE", "UNA DESCRIPCIONN");
-		Country country5 = new Country(100L, "UN NOMBRE", "UNA DESCRIPCION");
+		final CountryDto country1 = new CountryDto("UN NOMBRE", "UNA DESCRIPCION");
+		final CountryDto country2 = new CountryDto("UN NOMBRE", "UNA DESCRIPCIONN");
+		final CountryDto country3 = new CountryDto("UN NOMBREE", "UNA DESCRIPCIONN");
+		final CountryDto country4 = new CountryDto("UN NOMBREE", "UNA DESCRIPCIONN");
+		final Country country5 = new Country(100L, "UN NOMBRE", "UNA DESCRIPCION");
 		assertEquals(true, country1.equals(country1));
-		assertEquals(false, country1.equals(country2));
-		assertEquals(false, country1.equals(country3));
-		assertEquals(false, country1.equals(country4));
-		assertEquals(false, country1.equals(country5));
-		assertEquals(false, country1.equals(null));
+		assertNotEquals(true, country1.equals(country2));
+		assertNotEquals(true, country1.equals(country3));
+		assertNotEquals(true, country1.equals(country4));
+		assertNotEquals(true, country1.equals(country5));
+		assertNotEquals(true, country1.equals(null));
 	}
 
 	@Test
-	public void testCountryDtoHashcodeMethod() {
+	public void test3CountryDtoHashcodeMethod() {
 		this.logger.info("===> testCountryDtoHashcodeMethod()");
 		CountryDto country = new CountryDto("UN NOMBRE", "UNA DESCRIPCION");
 		assertEquals(891002054, country.hashCode());

@@ -1,14 +1,14 @@
 package org.springboot.app.endpoints;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.when;
-
+import static org.springboot.app.constants.Constants.MSG_CANT_DELETE_COUNTRY;
 import static org.springboot.app.constants.Constants.MSG_CANT_RETURN_COUNTRIES;
 import static org.springboot.app.constants.Constants.MSG_CANT_RETURN_COUNTRY;
 import static org.springboot.app.constants.Constants.MSG_CANT_SAVE_COUNTRY;
 import static org.springboot.app.constants.Constants.MSG_CANT_UPDATE_COUNTRY;
-import static org.springboot.app.constants.Constants.MSG_CANT_DELETE_COUNTRY;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -56,7 +56,7 @@ public class CountryControllerWithMockTest extends AppTestHelper {
 	}
 
 	@Test
-	public void testFindAllCountriesWithException() {
+	public void test1FindAllCountriesWithException() {
 		this.logger.info("===> testFindAllCountriesWithException()");
 		try {
 			when(countryService.findAll()).thenThrow(new ServiceException(MSG_CANT_RETURN_COUNTRIES));
@@ -77,7 +77,7 @@ public class CountryControllerWithMockTest extends AppTestHelper {
 	}
 
 	@Test
-	public void testFindCountriesWithExceptionById() {
+	public void test2FindCountriesWithExceptionById() {
 		this.logger.info("===> testFindCountriesWithExceptionById()");
 		try {
 			when(countryService.findById(1L)).thenThrow(new ServiceException(MSG_CANT_RETURN_COUNTRY));
@@ -98,7 +98,7 @@ public class CountryControllerWithMockTest extends AppTestHelper {
 	}
 
 	@Test
-	public void testCreateCountryWithException() {
+	public void test3CreateCountryWithException() {
 		this.logger.info("===> testCreateCountryWithException()");
 		CountryDto countryDto = new CountryDto();
 		countryDto.setName("NAME");
@@ -110,20 +110,20 @@ public class CountryControllerWithMockTest extends AppTestHelper {
 			e.printStackTrace();
 		}
 		String url = getUrlBase() + "/create";
-		ResponseEntity<Object> response = null;
-		Object object = null;
+		ResponseEntity<Boolean> response = null;
+		Boolean object = null;
 		try {
-			response = restTemplate.postForEntity(new URL(url).toString(), countryDto, Object.class);
+			response = restTemplate.postForEntity(new URL(url).toString(), countryDto, Boolean.class);
 			object = response.getBody();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
 		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
-		assertEquals(false, object);
+		assertFalse(object);
 	}
 
 	@Test
-	public void testModifyCountryWithException() {
+	public void test4ModifyCountryWithException() {
 		this.logger.info("===> testModifyCountryWithException()");
 		CountryDto countryDto = new CountryDto();
 		countryDto.setDescription("DESCRIPTION");
@@ -136,17 +136,19 @@ public class CountryControllerWithMockTest extends AppTestHelper {
 		String url = getUrlBase() + "/modify/1";
 		HttpEntity<CountryDto> httpEntity = new HttpEntity<>(countryDto);
 		ResponseEntity<Boolean> response = null;
+		Boolean object = null;
 		try {
 			response = restTemplate.exchange(new URL(url).toString(), HttpMethod.PUT, httpEntity, Boolean.class);
+			object = response.getBody();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
 		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
-		assertEquals(false, response.getBody());
+		assertFalse(object);
 	}
 
 	@Test
-	public void testDeleteCountryWithException() {
+	public void test5DeleteCountryWithException() {
 		this.logger.info("===> testDeleteCountryWithException()");
 		try {
 			when(countryService.delete(1L)).thenThrow(new ServiceException(MSG_CANT_DELETE_COUNTRY));
@@ -155,13 +157,15 @@ public class CountryControllerWithMockTest extends AppTestHelper {
 		}
 		String url = getUrlBase() + "/delete/1";
 		ResponseEntity<Boolean> response = null;
+		Boolean object = null;
 		try {
 			response = restTemplate.exchange(new URL(url).toString(), HttpMethod.DELETE, null, Boolean.class);
+			object = response.getBody();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
 		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
-		assertEquals(false, response.getBody());
+		assertFalse(object);
 	}
 
 }

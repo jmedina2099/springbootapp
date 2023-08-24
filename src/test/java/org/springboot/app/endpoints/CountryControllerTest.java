@@ -1,6 +1,9 @@
 package org.springboot.app.endpoints;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.springboot.app.constants.Constants.MSG_HELLO;
 
 import java.net.MalformedURLException;
@@ -38,7 +41,7 @@ public class CountryControllerTest extends AppTestHelper {
 	}
 
 	@Test
-	public void testHello() {
+	public void testAHello() {
 		this.logger.info("===> testHello()");
 		String url = getUrlBase() + "/";
 		ResponseEntity<String> response = null;
@@ -54,7 +57,7 @@ public class CountryControllerTest extends AppTestHelper {
 	}
 
 	@Test
-	public void testFindCountries() {
+	public void testBFindCountries() {
 		this.logger.info("===> testFindCountries()");
 		String url = getUrlBase() + "/find";
 		ResponseEntity<CountryDto[]> response = null;
@@ -70,10 +73,22 @@ public class CountryControllerTest extends AppTestHelper {
 		CountryDto user1 = objects[0];
 		assertEquals("USA", user1.getName());
 		assertEquals("Neighbor at top", user1.getDescription());
+		CountryDto user2 = objects[1];
+		assertEquals("France", user2.getName());
+		assertEquals("Cardif's headquarter", user2.getDescription());
+		CountryDto user3 = objects[2];
+		assertEquals("Brazil", user3.getName());
+		assertEquals("There is too much sun", user3.getDescription());
+		CountryDto user4 = objects[3];
+		assertEquals("Italy", user4.getName());
+		assertEquals("There is mafia overthere", user4.getDescription());
+		CountryDto user5 = objects[4];
+		assertEquals("Canada", user5.getName());
+		assertEquals("So nice", user5.getDescription());
 	}
 
 	@Test
-	public void testCreateCountry() {
+	public void testCCreateCountry() {
 		this.logger.info("===> testCreateCountry()");
 		String url = getUrlBase() + "/create";
 		CountryDto countryDto = new CountryDto();
@@ -88,11 +103,17 @@ public class CountryControllerTest extends AppTestHelper {
 			e.printStackTrace();
 		}
 		assertEquals(HttpStatus.OK, response.getStatusCode());
-		assertEquals(true, value);
+		assertTrue(value);
+		// Double check action
+		ResponseEntity<CountryDto> response2 = findById(6L);
+		CountryDto countryDto2 = response2.getBody();
+		assertEquals(HttpStatus.OK, response2.getStatusCode());
+		assertEquals("HOLA", countryDto2.getName());
+		assertEquals("DESCRIPTION", countryDto2.getDescription());
 	}
 
 	@Test
-	public void testModifyCountryById() {
+	public void testDModifyCountryById() {
 		this.logger.info("===> testModifyCountryById()");
 		String url = getUrlBase() + "/modify/1";
 		CountryDto countryDto = new CountryDto();
@@ -106,11 +127,17 @@ public class CountryControllerTest extends AppTestHelper {
 			e.printStackTrace();
 		}
 		assertEquals(HttpStatus.OK, response.getStatusCode());
-		assertEquals(true, response.getBody());
+		assertTrue(response.getBody());
+		// Double check action
+		ResponseEntity<CountryDto> response2 = findById(1L);
+		CountryDto countryDto2 = response2.getBody();
+		assertEquals(HttpStatus.OK, response2.getStatusCode());
+		assertEquals("NAME", countryDto2.getName());
+		assertEquals("DESCRIPTION", countryDto2.getDescription());
 	}
 
 	@Test
-	public void testDeleteCountryById() {
+	public void testEDeleteCountryById() {
 		this.logger.info("===> testDeleteCountryById()");
 		String url = getUrlBase() + "/delete/6";
 		ResponseEntity<Boolean> response = null;
@@ -120,44 +147,35 @@ public class CountryControllerTest extends AppTestHelper {
 			e.printStackTrace();
 		}
 		assertEquals(HttpStatus.OK, response.getStatusCode());
-		assertEquals(true, response.getBody());
+		assertTrue(response.getBody());
+		// Double check action
+		ResponseEntity<CountryDto> response2 = findById(6L);
+		CountryDto countryDto2 = response2.getBody();
+		assertEquals(HttpStatus.NOT_FOUND, response2.getStatusCode());
+		assertNull(countryDto2);
 	}
 
 	@Test
-	public void testFindCountryById() {
+	public void testFFindCountryById() {
 		this.logger.info("===> testFindCountryById()");
-		String url = getUrlBase() + "/findById/1";
-		ResponseEntity<CountryDto> response = null;
-		CountryDto countryDto = null;
-		try {
-			response = restTemplate.getForEntity(new URL(url).toString(), CountryDto.class);
-			countryDto = response.getBody();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
+		ResponseEntity<CountryDto> response = findById(2L);
+		CountryDto countryDto = response.getBody();
 		assertEquals(HttpStatus.OK, response.getStatusCode());
-		assertEquals("USA", countryDto.getName());
-		assertEquals("Neighbor at top", countryDto.getDescription());
+		assertEquals("France", countryDto.getName());
+		assertEquals("Cardif's headquarter", countryDto.getDescription());
 	}
 
 	@Test
-	public void testFindInexistentCountryById() {
+	public void testGFindInexistentCountryById() {
 		this.logger.info("===> testFindInexistentCountryById()");
-		String url = getUrlBase() + "/findById/10";
-		ResponseEntity<CountryDto> response = null;
-		CountryDto countryDto = null;
-		try {
-			response = restTemplate.getForEntity(new URL(url).toString(), CountryDto.class);
-			countryDto = response.getBody();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
+		ResponseEntity<CountryDto> response = findById(10L);
+		CountryDto countryDto = response.getBody();
 		assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-		assertEquals(null, countryDto);
+		assertNull(countryDto);
 	}
 
 	@Test
-	public void testModifyInexistentCountryById() {
+	public void testHModifyInexistentCountryById() {
 		this.logger.info("===> testModifyInexistentCountryById()");
 		String url = getUrlBase() + "/modify/10";
 		ResponseEntity<Boolean> response = null;
@@ -171,11 +189,11 @@ public class CountryControllerTest extends AppTestHelper {
 			e.printStackTrace();
 		}
 		assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-		assertEquals(false, response.getBody());
+		assertFalse(response.getBody());
 	}
 
 	@Test
-	public void testDeleteInexistentCountryById() {
+	public void testIDeleteInexistentCountryById() {
 		this.logger.info("===> testDeleteInexistentCountryById()");
 		String url = getUrlBase() + "/delete/10";
 		ResponseEntity<Boolean> response = null;
@@ -185,11 +203,11 @@ public class CountryControllerTest extends AppTestHelper {
 			e.printStackTrace();
 		}
 		assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-		assertEquals(false, response.getBody());
+		assertFalse(response.getBody());
 	}
 
 	@Test
-	public void testCreateCountryWithException() {
+	public void testJCreateCountryWithException() {
 		this.logger.info("===> testCreateCountryWithException()");
 		String url = getUrlBase() + "/create";
 		ResponseEntity<Boolean> response = null;
@@ -201,15 +219,15 @@ public class CountryControllerTest extends AppTestHelper {
 			e.printStackTrace();
 		}
 		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
-		assertEquals(false, value);
+		assertFalse(value);
 	}
 
 	@Test
-	public void testModifyCountryByIdWithSpaces() {
-		this.logger.info("===> testModifyCountryByIdWithSpaces()");
-		String url = getUrlBase() + "/modify/1";
+	public void testKModifyCountryByIdWithSpaces1() {
+		this.logger.info("===> testModifyCountryByIdWithSpaces1()");
+		String url = getUrlBase() + "/modify/3";
 		CountryDto countryDto = new CountryDto();
-		countryDto.setName("    ");
+		countryDto.setName("  NAME3  ");
 		countryDto.setDescription("    ");
 		HttpEntity<CountryDto> httpEntity = new HttpEntity<>(countryDto);
 		ResponseEntity<Boolean> response = null;
@@ -219,13 +237,43 @@ public class CountryControllerTest extends AppTestHelper {
 			e.printStackTrace();
 		}
 		assertEquals(HttpStatus.OK, response.getStatusCode());
-		assertEquals(true, response.getBody());
+		assertTrue(response.getBody());
+		// Double check action
+		ResponseEntity<CountryDto> response2 = findById(3L);
+		CountryDto countryDto2 = response2.getBody();
+		assertEquals(HttpStatus.OK, response2.getStatusCode());
+		assertEquals("NAME3", countryDto2.getName());
+		assertEquals("There is too much sun", countryDto2.getDescription());
 	}
 
 	@Test
-	public void testModifyCountryByIdWithNulls() {
+	public void testLModifyCountryByIdWithSpaces2() {
+		this.logger.info("===> testModifyCountryByIdWithSpaces2()");
+		String url = getUrlBase() + "/modify/5";
+		CountryDto countryDto = new CountryDto();
+		countryDto.setName("    ");
+		countryDto.setDescription("  DESCRIPTION5  ");
+		HttpEntity<CountryDto> httpEntity = new HttpEntity<>(countryDto);
+		ResponseEntity<Boolean> response = null;
+		try {
+			response = restTemplate.exchange(new URL(url).toString(), HttpMethod.PUT, httpEntity, Boolean.class);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+		assertTrue(response.getBody());
+		// Double check action
+		ResponseEntity<CountryDto> response2 = findById(5L);
+		CountryDto countryDto2 = response2.getBody();
+		assertEquals(HttpStatus.OK, response2.getStatusCode());
+		assertEquals("Canada", countryDto2.getName());
+		assertEquals("DESCRIPTION5", countryDto2.getDescription());
+	}
+
+	@Test
+	public void testMModifyCountryByIdWithNulls() {
 		this.logger.info("===> testModifyCountryByIdWithNulls()");
-		String url = getUrlBase() + "/modify/1";
+		String url = getUrlBase() + "/modify/4";
 		CountryDto countryDto = new CountryDto();
 		HttpEntity<CountryDto> httpEntity = new HttpEntity<>(countryDto);
 		ResponseEntity<Boolean> response = null;
@@ -236,5 +284,21 @@ public class CountryControllerTest extends AppTestHelper {
 		}
 		assertEquals(HttpStatus.OK, response.getStatusCode());
 		assertEquals(true, response.getBody());
+		// Double check action
+		ResponseEntity<CountryDto> response2 = findById(4L);
+		CountryDto countryDto2 = response2.getBody();
+		assertEquals(HttpStatus.OK, response2.getStatusCode());
+		assertEquals("Italy", countryDto2.getName());
+		assertEquals("There is mafia overthere", countryDto2.getDescription());
+	}
+	
+	private ResponseEntity<CountryDto> findById( Long id ) {
+		String url = getUrlBase() + "/findById/"+id;
+		try {
+			return restTemplate.getForEntity(new URL(url).toString(), CountryDto.class);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
