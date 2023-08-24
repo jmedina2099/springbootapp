@@ -9,6 +9,11 @@ import static org.springboot.app.constants.Constants.MSG_CANT_RETURN_COUNTRIES;
 import static org.springboot.app.constants.Constants.MSG_CANT_RETURN_COUNTRY;
 import static org.springboot.app.constants.Constants.MSG_CANT_SAVE_COUNTRY;
 import static org.springboot.app.constants.Constants.MSG_CANT_UPDATE_COUNTRY;
+import static org.springboot.app.constants.Constants.URI_COUNTRY_ENDPOINT_CREATE;
+import static org.springboot.app.constants.Constants.URI_COUNTRY_ENDPOINT_DELETE_BY_ID;
+import static org.springboot.app.constants.Constants.URI_COUNTRY_ENDPOINT_FIND;
+import static org.springboot.app.constants.Constants.URI_COUNTRY_ENDPOINT_FIND_BY_ID;
+import static org.springboot.app.constants.Constants.URI_COUNTRY_ENDPOINT_MODIFY_BY_ID;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -63,7 +68,7 @@ public class CountryControllerWithMockTest extends AppTestHelper {
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
-		String url = getUrlBase() + "/find";
+		String url = getUrlBase() + URI_COUNTRY_ENDPOINT_FIND;
 		ResponseEntity<CountryDto[]> response = null;
 		CountryDto[] objects = null;
 		try {
@@ -84,7 +89,7 @@ public class CountryControllerWithMockTest extends AppTestHelper {
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
-		String url = getUrlBase() + "/findById/1";
+		String url = getUrlBase() + URI_COUNTRY_ENDPOINT_FIND_BY_ID + "1";
 		ResponseEntity<CountryDto[]> response = null;
 		CountryDto[] objects = null;
 		try {
@@ -109,7 +114,7 @@ public class CountryControllerWithMockTest extends AppTestHelper {
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
-		String url = getUrlBase() + "/create";
+		String url = getUrlBase() + URI_COUNTRY_ENDPOINT_CREATE;
 		ResponseEntity<Boolean> response = null;
 		Boolean object = null;
 		try {
@@ -133,7 +138,7 @@ public class CountryControllerWithMockTest extends AppTestHelper {
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
-		String url = getUrlBase() + "/modify/1";
+		String url = getUrlBase() + URI_COUNTRY_ENDPOINT_MODIFY_BY_ID + "1";
 		HttpEntity<CountryDto> httpEntity = new HttpEntity<>(countryDto);
 		ResponseEntity<Boolean> response = null;
 		Boolean object = null;
@@ -155,7 +160,7 @@ public class CountryControllerWithMockTest extends AppTestHelper {
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
-		String url = getUrlBase() + "/delete/1";
+		String url = getUrlBase() + URI_COUNTRY_ENDPOINT_DELETE_BY_ID + "1";
 		ResponseEntity<Boolean> response = null;
 		Boolean object = null;
 		try {

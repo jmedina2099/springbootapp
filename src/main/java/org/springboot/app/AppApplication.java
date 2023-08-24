@@ -1,6 +1,6 @@
 package org.springboot.app;
 
-import static org.springboot.app.constants.Constants.PRE_ERROR_MSG;
+import static org.springboot.app.constants.Constants.MSG_PRE_ERROR;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,7 +22,7 @@ public class AppApplication extends SpringBootServletInitializer {
 		try {
 			SpringApplication.run(AppApplication.class, args);
 		} catch (Exception e) {
-			log.error(PRE_ERROR_MSG, e.getMessage());
+			log.error(MSG_PRE_ERROR, e.getMessage());
 		}
 	}
 

@@ -1,10 +1,10 @@
 package org.springboot.app.service.impl;
 
-import static org.springboot.app.constants.Constants.PRE_ERROR_MSG;
-import static org.springboot.app.constants.Constants.MSG_CANT_RETURN_COUNTRIES;
-import static org.springboot.app.constants.Constants.MSG_CANT_SAVE_COUNTRY;
-import static org.springboot.app.constants.Constants.MSG_CANT_RETURN_COUNTRY;
 import static org.springboot.app.constants.Constants.MSG_CANT_DELETE_COUNTRY;
+import static org.springboot.app.constants.Constants.MSG_CANT_RETURN_COUNTRIES;
+import static org.springboot.app.constants.Constants.MSG_CANT_RETURN_COUNTRY;
+import static org.springboot.app.constants.Constants.MSG_CANT_SAVE_COUNTRY;
+import static org.springboot.app.constants.Constants.MSG_PRE_ERROR;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +48,7 @@ public class CountryServiceImpl implements CountryService {
 			StreamSupport.stream(this.countryRepository.findAll().spliterator(), false).map(CountryDto::new)
 					.forEach(listado::add);
 		} catch (Exception e) {
-			this.logger.error(PRE_ERROR_MSG, e.getMessage());
+			this.logger.error(MSG_PRE_ERROR, e.getMessage());
 			throw new ServiceException(MSG_CANT_RETURN_COUNTRIES, e);
 		}
 		return listado;
@@ -68,7 +68,7 @@ public class CountryServiceImpl implements CountryService {
 		try {
 			this.countryRepository.save(country);
 		} catch (Exception e) {
-			this.logger.error(PRE_ERROR_MSG, e.getMessage());
+			this.logger.error(MSG_PRE_ERROR, e.getMessage());
 			throw new ServiceException(MSG_CANT_SAVE_COUNTRY, e);
 		}
 		return true;
@@ -92,7 +92,7 @@ public class CountryServiceImpl implements CountryService {
 		try {
 			this.countryRepository.save(country);
 		} catch (Exception e) {
-			this.logger.error(PRE_ERROR_MSG, e.getMessage());
+			this.logger.error(MSG_PRE_ERROR, e.getMessage());
 			throw new ServiceException(MSG_CANT_SAVE_COUNTRY, e);
 		}
 		return true;
@@ -107,7 +107,7 @@ public class CountryServiceImpl implements CountryService {
 		try {
 			this.countryRepository.deleteById(id);
 		} catch (Exception e) {
-			this.logger.error(PRE_ERROR_MSG, e.getMessage());
+			this.logger.error(MSG_PRE_ERROR, e.getMessage());
 			throw new ServiceException(MSG_CANT_DELETE_COUNTRY, e);
 		}
 		return true;
@@ -117,7 +117,7 @@ public class CountryServiceImpl implements CountryService {
 		try {
 			return this.countryRepository.findById(id);
 		} catch (Exception e) {
-			this.logger.error(PRE_ERROR_MSG, e.getMessage());
+			this.logger.error(MSG_PRE_ERROR, e.getMessage());
 			throw new ServiceException(MSG_CANT_RETURN_COUNTRY, e);
 		}
 	}

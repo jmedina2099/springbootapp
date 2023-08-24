@@ -1,7 +1,13 @@
 package org.springboot.app.controller.impl;
 
 import static org.springboot.app.constants.Constants.MSG_HELLO;
-import static org.springboot.app.constants.Constants.PRE_ERROR_MSG;
+import static org.springboot.app.constants.Constants.MSG_PRE_ERROR;
+import static org.springboot.app.constants.Constants.URI_COUNTRY_ENDPOINT_CREATE;
+import static org.springboot.app.constants.Constants.URI_COUNTRY_ENDPOINT_DELETE_BY_ID;
+import static org.springboot.app.constants.Constants.URI_COUNTRY_ENDPOINT_FIND;
+import static org.springboot.app.constants.Constants.URI_COUNTRY_ENDPOINT_FIND_BY_ID;
+import static org.springboot.app.constants.Constants.URI_COUNTRY_ENDPOINT_HELLO;
+import static org.springboot.app.constants.Constants.URI_COUNTRY_ENDPOINT_MODIFY_BY_ID;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,33 +47,33 @@ public class CountryControllerImpl implements CountryController {
 		this.countryService = countryService;
 	}
 
-	@GetMapping("/")
+	@GetMapping(URI_COUNTRY_ENDPOINT_HELLO)
 	public ResponseEntity<String> hello() {
 		this.logger.debug("==> processing hello()");
 		return new ResponseEntity<>(MSG_HELLO, HttpStatus.OK);
 	}
 
-	@GetMapping("/find")
+	@GetMapping(URI_COUNTRY_ENDPOINT_FIND)
 	public ResponseEntity<List<CountryDto>> find() {
 		this.logger.debug("==> processing find()");
 		List<CountryDto> listado = new ArrayList<>();
 		try {
 			listado = this.countryService.findAll();
 		} catch (Exception e) {
-			this.logger.error(PRE_ERROR_MSG, e.getMessage());
+			this.logger.error(MSG_PRE_ERROR, e.getMessage());
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<>(listado, HttpStatus.OK);
 	}
 
-	@GetMapping("/findById/{id}")
+	@GetMapping(URI_COUNTRY_ENDPOINT_FIND_BY_ID + "{id}")
 	public ResponseEntity<CountryDto> findById(@NotNull @PathVariable Long id) {
 		this.logger.debug("==> processing findById()");
 		Optional<CountryDto> country = Optional.empty();
 		try {
 			country = this.countryService.findById(id);
 		} catch (Exception e) {
-			this.logger.error(PRE_ERROR_MSG, e.getMessage());
+			this.logger.error(MSG_PRE_ERROR, e.getMessage());
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		if (country.isEmpty()) {
@@ -76,19 +82,19 @@ public class CountryControllerImpl implements CountryController {
 		return new ResponseEntity<>(country.get(), HttpStatus.OK);
 	}
 
-	@PostMapping("/create")
+	@PostMapping(URI_COUNTRY_ENDPOINT_CREATE)
 	public ResponseEntity<Boolean> create(@NotNull @RequestBody CountryDto countryDto) {
 		this.logger.debug("==> processing create()");
 		try {
 			this.countryService.create(new Country(countryDto));
 		} catch (Exception e) {
-			this.logger.error(PRE_ERROR_MSG, e.getMessage());
+			this.logger.error(MSG_PRE_ERROR, e.getMessage());
 			return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<>(true, HttpStatus.OK);
 	}
 
-	@PutMapping("/modify/{id}")
+	@PutMapping(URI_COUNTRY_ENDPOINT_MODIFY_BY_ID + "{id}")
 	public ResponseEntity<Boolean> modify(@NotNull @RequestBody CountryDto countryDto, @NotNull @PathVariable Long id) {
 		this.logger.debug("==> processing modify()");
 		try {
@@ -96,13 +102,13 @@ public class CountryControllerImpl implements CountryController {
 				return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
 			}
 		} catch (Exception e) {
-			this.logger.error(PRE_ERROR_MSG, e.getMessage());
+			this.logger.error(MSG_PRE_ERROR, e.getMessage());
 			return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<>(true, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping(URI_COUNTRY_ENDPOINT_DELETE_BY_ID + "{id}")
 	public ResponseEntity<Boolean> delete(@NotNull @PathVariable Long id) {
 		this.logger.debug("==> processing delete()");
 		try {
@@ -110,7 +116,7 @@ public class CountryControllerImpl implements CountryController {
 				return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
 			}
 		} catch (Exception e) {
-			this.logger.error(PRE_ERROR_MSG, e.getMessage());
+			this.logger.error(MSG_PRE_ERROR, e.getMessage());
 			return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<>(true, HttpStatus.OK);
@@ -119,7 +125,7 @@ public class CountryControllerImpl implements CountryController {
 	@ExceptionHandler(value = Exception.class)
 	public ResponseEntity<Boolean> handleException(Exception e) {
 		this.logger.debug("==> processing handleException()");
-		this.logger.error(PRE_ERROR_MSG, e.getMessage());
+		this.logger.error(MSG_PRE_ERROR, e.getMessage());
 		return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 }

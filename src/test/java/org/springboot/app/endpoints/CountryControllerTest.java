@@ -5,6 +5,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.springboot.app.constants.Constants.MSG_HELLO;
+import static org.springboot.app.constants.Constants.URI_COUNTRY_ENDPOINT_CREATE;
+import static org.springboot.app.constants.Constants.URI_COUNTRY_ENDPOINT_DELETE_BY_ID;
+import static org.springboot.app.constants.Constants.URI_COUNTRY_ENDPOINT_FIND;
+import static org.springboot.app.constants.Constants.URI_COUNTRY_ENDPOINT_FIND_BY_ID;
+import static org.springboot.app.constants.Constants.URI_COUNTRY_ENDPOINT_HELLO;
+import static org.springboot.app.constants.Constants.URI_COUNTRY_ENDPOINT_MODIFY_BY_ID;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -43,7 +49,7 @@ public class CountryControllerTest extends AppTestHelper {
 	@Test
 	public void testAHello() {
 		this.logger.info("===> testHello()");
-		String url = getUrlBase() + "/";
+		String url = getUrlBase() + URI_COUNTRY_ENDPOINT_HELLO;
 		ResponseEntity<String> response = null;
 		String object = null;
 		try {
@@ -59,7 +65,7 @@ public class CountryControllerTest extends AppTestHelper {
 	@Test
 	public void testBFindCountries() {
 		this.logger.info("===> testFindCountries()");
-		String url = getUrlBase() + "/find";
+		String url = getUrlBase() + URI_COUNTRY_ENDPOINT_FIND;
 		ResponseEntity<CountryDto[]> response = null;
 		CountryDto[] objects = null;
 		try {
@@ -90,7 +96,7 @@ public class CountryControllerTest extends AppTestHelper {
 	@Test
 	public void testCCreateCountry() {
 		this.logger.info("===> testCreateCountry()");
-		String url = getUrlBase() + "/create";
+		String url = getUrlBase() + URI_COUNTRY_ENDPOINT_CREATE;
 		CountryDto countryDto = new CountryDto();
 		countryDto.setName("HOLA");
 		countryDto.setDescription("DESCRIPTION");
@@ -115,7 +121,7 @@ public class CountryControllerTest extends AppTestHelper {
 	@Test
 	public void testDModifyCountryById() {
 		this.logger.info("===> testModifyCountryById()");
-		String url = getUrlBase() + "/modify/1";
+		String url = getUrlBase() + URI_COUNTRY_ENDPOINT_MODIFY_BY_ID + "1";
 		CountryDto countryDto = new CountryDto();
 		countryDto.setName("NAME");
 		countryDto.setDescription("DESCRIPTION");
@@ -139,7 +145,7 @@ public class CountryControllerTest extends AppTestHelper {
 	@Test
 	public void testEDeleteCountryById() {
 		this.logger.info("===> testDeleteCountryById()");
-		String url = getUrlBase() + "/delete/6";
+		String url = getUrlBase() + URI_COUNTRY_ENDPOINT_DELETE_BY_ID + "6";
 		ResponseEntity<Boolean> response = null;
 		try {
 			response = restTemplate.exchange(new URL(url).toString(), HttpMethod.DELETE, null, Boolean.class);
@@ -177,7 +183,7 @@ public class CountryControllerTest extends AppTestHelper {
 	@Test
 	public void testHModifyInexistentCountryById() {
 		this.logger.info("===> testModifyInexistentCountryById()");
-		String url = getUrlBase() + "/modify/10";
+		String url = getUrlBase() + URI_COUNTRY_ENDPOINT_MODIFY_BY_ID + "10";
 		ResponseEntity<Boolean> response = null;
 		CountryDto countryDto = new CountryDto();
 		countryDto.setName("NAME");
@@ -195,7 +201,7 @@ public class CountryControllerTest extends AppTestHelper {
 	@Test
 	public void testIDeleteInexistentCountryById() {
 		this.logger.info("===> testDeleteInexistentCountryById()");
-		String url = getUrlBase() + "/delete/10";
+		String url = getUrlBase() + URI_COUNTRY_ENDPOINT_DELETE_BY_ID + "10";
 		ResponseEntity<Boolean> response = null;
 		try {
 			response = restTemplate.exchange(new URL(url).toString(), HttpMethod.DELETE, null, Boolean.class);
@@ -209,7 +215,7 @@ public class CountryControllerTest extends AppTestHelper {
 	@Test
 	public void testJCreateCountryWithException() {
 		this.logger.info("===> testCreateCountryWithException()");
-		String url = getUrlBase() + "/create";
+		String url = getUrlBase() + URI_COUNTRY_ENDPOINT_CREATE;
 		ResponseEntity<Boolean> response = null;
 		Boolean value = null;
 		try {
@@ -225,7 +231,7 @@ public class CountryControllerTest extends AppTestHelper {
 	@Test
 	public void testKModifyCountryByIdWithSpaces1() {
 		this.logger.info("===> testModifyCountryByIdWithSpaces1()");
-		String url = getUrlBase() + "/modify/3";
+		String url = getUrlBase() + URI_COUNTRY_ENDPOINT_MODIFY_BY_ID + "3";
 		CountryDto countryDto = new CountryDto();
 		countryDto.setName("  NAME3  ");
 		countryDto.setDescription("    ");
@@ -249,7 +255,7 @@ public class CountryControllerTest extends AppTestHelper {
 	@Test
 	public void testLModifyCountryByIdWithSpaces2() {
 		this.logger.info("===> testModifyCountryByIdWithSpaces2()");
-		String url = getUrlBase() + "/modify/5";
+		String url = getUrlBase() + URI_COUNTRY_ENDPOINT_MODIFY_BY_ID + "5";
 		CountryDto countryDto = new CountryDto();
 		countryDto.setName("    ");
 		countryDto.setDescription("  DESCRIPTION5  ");
@@ -273,7 +279,7 @@ public class CountryControllerTest extends AppTestHelper {
 	@Test
 	public void testMModifyCountryByIdWithNulls() {
 		this.logger.info("===> testModifyCountryByIdWithNulls()");
-		String url = getUrlBase() + "/modify/4";
+		String url = getUrlBase() + URI_COUNTRY_ENDPOINT_MODIFY_BY_ID + "4";
 		CountryDto countryDto = new CountryDto();
 		HttpEntity<CountryDto> httpEntity = new HttpEntity<>(countryDto);
 		ResponseEntity<Boolean> response = null;
@@ -291,9 +297,9 @@ public class CountryControllerTest extends AppTestHelper {
 		assertEquals("Italy", countryDto2.getName());
 		assertEquals("There is mafia overthere", countryDto2.getDescription());
 	}
-	
-	private ResponseEntity<CountryDto> findById( Long id ) {
-		String url = getUrlBase() + "/findById/"+id;
+
+	private ResponseEntity<CountryDto> findById(Long id) {
+		String url = getUrlBase() + URI_COUNTRY_ENDPOINT_FIND_BY_ID + id;
 		try {
 			return restTemplate.getForEntity(new URL(url).toString(), CountryDto.class);
 		} catch (MalformedURLException e) {

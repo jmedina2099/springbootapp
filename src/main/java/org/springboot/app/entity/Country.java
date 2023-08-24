@@ -1,11 +1,11 @@
 package org.springboot.app.entity;
 
-import static org.springboot.app.constants.Constants.MSG_COUNTRY_NAME_IS_NULL;
-import static org.springboot.app.constants.Constants.MSG_COUNTRY_NAME_IS_EMPTY;
-import static org.springboot.app.constants.Constants.MSG_COUNTRY_NAME_IS_BLANK;
-import static org.springboot.app.constants.Constants.MSG_COUNTRY_DESC_IS_NULL;
-import static org.springboot.app.constants.Constants.MSG_COUNTRY_DESC_IS_EMPTY;
 import static org.springboot.app.constants.Constants.MSG_COUNTRY_DESC_IS_BLANK;
+import static org.springboot.app.constants.Constants.MSG_COUNTRY_DESC_IS_EMPTY;
+import static org.springboot.app.constants.Constants.MSG_COUNTRY_DESC_IS_NULL;
+import static org.springboot.app.constants.Constants.MSG_COUNTRY_NAME_IS_BLANK;
+import static org.springboot.app.constants.Constants.MSG_COUNTRY_NAME_IS_EMPTY;
+import static org.springboot.app.constants.Constants.MSG_COUNTRY_NAME_IS_NULL;
 
 import java.util.Objects;
 

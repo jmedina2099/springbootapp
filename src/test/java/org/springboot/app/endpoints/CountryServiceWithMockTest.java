@@ -10,6 +10,11 @@ import static org.springboot.app.constants.Constants.MSG_CANT_RETURN_COUNTRIES;
 import static org.springboot.app.constants.Constants.MSG_CANT_RETURN_COUNTRY;
 import static org.springboot.app.constants.Constants.MSG_CANT_SAVE_COUNTRY;
 import static org.springboot.app.constants.Constants.MSG_CANT_UPDATE_COUNTRY;
+import static org.springboot.app.constants.Constants.URI_COUNTRY_ENDPOINT_CREATE;
+import static org.springboot.app.constants.Constants.URI_COUNTRY_ENDPOINT_DELETE_BY_ID;
+import static org.springboot.app.constants.Constants.URI_COUNTRY_ENDPOINT_FIND;
+import static org.springboot.app.constants.Constants.URI_COUNTRY_ENDPOINT_FIND_BY_ID;
+import static org.springboot.app.constants.Constants.URI_COUNTRY_ENDPOINT_MODIFY_BY_ID;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -60,7 +65,7 @@ public class CountryServiceWithMockTest extends AppTestHelper {
 	public void test1FindAllCountriesWithException() {
 		this.logger.info("===> testFindAllCountriesWithException()");
 		when(countryRepository.findAll()).thenThrow(new RuntimeException(MSG_CANT_RETURN_COUNTRIES));
-		String url = getUrlBase() + "/find";
+		String url = getUrlBase() + URI_COUNTRY_ENDPOINT_FIND;
 		ResponseEntity<CountryDto[]> response = null;
 		CountryDto[] objects = null;
 		try {
@@ -81,7 +86,7 @@ public class CountryServiceWithMockTest extends AppTestHelper {
 		countryDto.setDescription("DESCRIPTION");
 		Country country = new Country(countryDto);
 		when(countryRepository.save(country)).thenThrow(new RuntimeException(MSG_CANT_SAVE_COUNTRY));
-		String url = getUrlBase() + "/create";
+		String url = getUrlBase() + URI_COUNTRY_ENDPOINT_CREATE;
 		ResponseEntity<Boolean> response = null;
 		Boolean object = null;
 		try {
@@ -98,7 +103,7 @@ public class CountryServiceWithMockTest extends AppTestHelper {
 	public void test3FindCountriesWithExceptionById() {
 		this.logger.info("===> testFindCountriesWithExceptionById()");
 		when(countryRepository.findById(1L)).thenThrow(new RuntimeException(MSG_CANT_RETURN_COUNTRY));
-		String url = getUrlBase() + "/findById/1";
+		String url = getUrlBase() + URI_COUNTRY_ENDPOINT_FIND_BY_ID + "1";
 		ResponseEntity<CountryDto[]> response = null;
 		CountryDto[] objects = null;
 		try {
@@ -121,7 +126,7 @@ public class CountryServiceWithMockTest extends AppTestHelper {
 		country.setId(1L);
 		when(countryRepository.findById(1L)).thenReturn(Optional.of(country));
 		when(countryRepository.save(country)).thenThrow(new RuntimeException(MSG_CANT_UPDATE_COUNTRY));
-		String url = getUrlBase() + "/modify/1";
+		String url = getUrlBase() + URI_COUNTRY_ENDPOINT_MODIFY_BY_ID + "1";
 		HttpEntity<CountryDto> httpEntity = new HttpEntity<>(countryDto);
 		ResponseEntity<Boolean> response = null;
 		Boolean object = null;
@@ -145,7 +150,7 @@ public class CountryServiceWithMockTest extends AppTestHelper {
 		country.setId(1L);
 		when(countryRepository.findById(1L)).thenReturn(Optional.of(country));
 		doThrow(new RuntimeException(MSG_CANT_DELETE_COUNTRY)).when(countryRepository).deleteById(1L);
-		String url = getUrlBase() + "/delete/1";
+		String url = getUrlBase() + URI_COUNTRY_ENDPOINT_DELETE_BY_ID + "1";
 		ResponseEntity<Boolean> response = null;
 		Boolean object = null;
 		try {

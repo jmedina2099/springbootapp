@@ -9,7 +9,7 @@ import lombok.Generated;
 @Generated
 public final class Constants {
 
-	public static final String PRE_ERROR_MSG = "**=> error: {}";
+	public static final String MSG_PRE_ERROR = "**=> error: {}";
 
 	public static final String MSG_CANT_RETURN_COUNTRY = "No fue posible regresar el pais.";
 	public static final String MSG_CANT_RETURN_COUNTRIES = "No fue posible regresar el listado de paises.";
@@ -26,6 +26,13 @@ public final class Constants {
 	public static final String MSG_COUNTRY_DESC_IS_BLANK = "Description is blank";
 
 	public static final String MSG_HELLO = "OK!";
+
+	public static final String URI_COUNTRY_ENDPOINT_HELLO = "/";
+	public static final String URI_COUNTRY_ENDPOINT_FIND = "/find";
+	public static final String URI_COUNTRY_ENDPOINT_FIND_BY_ID = "/findById/";
+	public static final String URI_COUNTRY_ENDPOINT_CREATE = "/create";
+	public static final String URI_COUNTRY_ENDPOINT_MODIFY_BY_ID = "/modify/";
+	public static final String URI_COUNTRY_ENDPOINT_DELETE_BY_ID = "/delete/";
 
 	private Constants() {
 	}
