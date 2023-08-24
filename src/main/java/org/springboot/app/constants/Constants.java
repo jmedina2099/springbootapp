@@ -34,6 +34,10 @@ public final class Constants {
 	public static final String URI_COUNTRY_ENDPOINT_MODIFY_BY_ID = "/modify/";
 	public static final String URI_COUNTRY_ENDPOINT_DELETE_BY_ID = "/delete/";
 
+	public static final String TABLE_COUNTRY = "COUNTRIES";
+	public static final String TABLE_COUNTRY_COLUMN_NAME = "NAME";
+	public static final String TABLE_COUNTRY_COLUMN_DESCRIPTION = "DESCRIPTION";
+
 	private Constants() {
 	}
 

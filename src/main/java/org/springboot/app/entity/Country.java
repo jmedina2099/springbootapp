@@ -6,6 +6,9 @@ import static org.springboot.app.constants.Constants.MSG_COUNTRY_DESC_IS_NULL;
 import static org.springboot.app.constants.Constants.MSG_COUNTRY_NAME_IS_BLANK;
 import static org.springboot.app.constants.Constants.MSG_COUNTRY_NAME_IS_EMPTY;
 import static org.springboot.app.constants.Constants.MSG_COUNTRY_NAME_IS_NULL;
+import static org.springboot.app.constants.Constants.TABLE_COUNTRY;
+import static org.springboot.app.constants.Constants.TABLE_COUNTRY_COLUMN_DESCRIPTION;
+import static org.springboot.app.constants.Constants.TABLE_COUNTRY_COLUMN_NAME;
 
 import java.util.Objects;
 
@@ -31,7 +34,7 @@ import lombok.Setter;
  *
  */
 @Entity
-@Table(name = "COUNTRIES")
+@Table(name = TABLE_COUNTRY)
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -42,13 +45,13 @@ public class Country {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "NAME")
+	@Column(name = TABLE_COUNTRY_COLUMN_NAME)
 	@NotNull(message = MSG_COUNTRY_NAME_IS_NULL)
 	@NotEmpty(message = MSG_COUNTRY_NAME_IS_EMPTY)
 	@NotBlank(message = MSG_COUNTRY_NAME_IS_BLANK)
 	private String name;
 
-	@Column(name = "DESCRIPTION")
+	@Column(name = TABLE_COUNTRY_COLUMN_DESCRIPTION)
 	@NotNull(message = MSG_COUNTRY_DESC_IS_NULL)
 	@NotEmpty(message = MSG_COUNTRY_DESC_IS_EMPTY)
 	@NotBlank(message = MSG_COUNTRY_DESC_IS_BLANK)

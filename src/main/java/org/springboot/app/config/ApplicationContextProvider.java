@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.springboot.app.config;
 
 import org.apache.logging.log4j.LogManager;
@@ -21,16 +18,16 @@ import lombok.Generated;
 public class ApplicationContextProvider implements ApplicationContextAware {
 
 	private final Logger logger = LogManager.getLogger(ApplicationContextProvider.class);
-	
+
 	private ApplicationContext applicationContext;
 
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-    	this.logger.info( "================> applicationContext LOADED!" );
-        this.applicationContext = applicationContext;
-    }
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+		this.logger.info("================> applicationContext LOADED!");
+		this.applicationContext = applicationContext;
+	}
 
-    public ApplicationContext getApplicationContext() {
-        return applicationContext;
-    }
+	public ApplicationContext getApplicationContext() {
+		return applicationContext;
+	}
 }
