@@ -1,3 +1,5 @@
+<button [className]="'addButton'" (click)="openModalCreate()">Agrega país</button>
+
 <div class="contentListado">
     <div class="rowListado" *ngFor="let pais of paises; let i = index">
         <div [className]="'span1'" [ngStyle]="{'border-top': i==0? '1px solid black': ''}" >
@@ -7,23 +9,23 @@
             {{pais.description}}
         </div>
         <div [className]="'span3'" [ngStyle]="{'border-top': i==0? '1px solid black': ''}" >
-            <button (click)="openModalEdit(pais.id)">Editar</button>
+            <button [className]="'editar'" (click)="openModalEdit(pais.id)">Editar</button>
         </div>
         <div [className]="'span4'"  [ngStyle]="{'border-top': i==0? '1px solid black': ''}" >
-            <button>Eliminar</button>
+            <button [className]="'eliminar'" (click)="openModalEliminar(pais.id)">Eliminar</button>
         </div>
     </div>
 </div>
 
-<jw-modal id="modal-1">
-    <h1 *ngIf="!isCreateModal">Editar el pais</h1>
-    <h1 *ngIf="isCreateModal">Alta de pais</h1>
+<jw-modal id="modal-1" class="modal1">
+    <h1 *ngIf="!isCreateModal">Editar el país</h1>
+    <h1 *ngIf="isCreateModal">Alta del país</h1>
     <form>
         <div class="modalForm">
             <div [className]="'col1'">
                 <div [className]="'celda'">Name:</div>
                 <div [className]="'celda'">Descripcion:</div>
-                <div [className]="'celda'"><button (click)="save();">Guardar</button></div>
+                <div [className]="'celda'"><button [className]="'guardar'" (click)="save();">Guardar</button></div>
             </div>
             <div [className]="'col2'">
                     <div [className]="'celda'">
@@ -32,8 +34,21 @@
                     <div [className]="'celda'">
                         <input type="text" name="description" [(ngModel)]="paisEditar.description" autocomplete="off" size="60" maxlength="60"/>
                     </div>
-                    <div [className]="'celda'"><button (click)="closeModal('modal-1');">Cerrar</button></div>
+                    <div [className]="'celda'"><button [className]="'closeModal'" (click)="closeModal('modal-1');">Cerrar</button></div>
             </div>
         </div>
     </form>
+</jw-modal>
+
+<jw-modal id="modal-2">
+    <h1>Elimnar el país</h1>
+    <p>¿Está usted seguro de quere eliminar el país: {{paisBorrar.name}}?</p>
+    <div class="modalForm">
+        <div [className]="'col1'">
+            <div [className]="'celda'"><button [className]="'delete'" (click)="delete();">Eliminar</button></div>
+        </div>
+        <div [className]="'col2'">
+            <div [className]="'celda'"><button (click)="closeModal('modal-2');">Cerrar</button></div>
+        </div>
+    </div>
 </jw-modal>

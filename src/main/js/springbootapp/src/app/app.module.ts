@@ -3,12 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { VentanaComponent } from './ventana/ventana.component';
-import { FetchCountriesService } from './fetch-countries/fetch-countries.service';
 import { HttpClientModule } from '@angular/common/http';
-import { ModalService } from './modal-service/modal-service.service';
-import { ModalComponent } from './modal/modal.component';
 import { FormsModule } from '@angular/forms';
+import { FetchCountriesService } from 'src/app/services/fetch-countries/fetch-countries.service';
+import { ModalService } from 'src/app/services/modal/modal.service';
+import { LoggerService } from 'src/app/services/logger/logger.service';
+import { ModalComponent } from './components/modal/modal.component';
+import { VentanaComponent } from './components/ventana/ventana.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     FormsModule
   ],
-  providers: [FetchCountriesService,ModalService],
+  providers: [FetchCountriesService,ModalService,LoggerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

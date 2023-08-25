@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation, ElementRef, Input, OnInit, OnDestroy } from '@angular/core';
-import { ModalService } from '../modal-service/modal-service.service';
+import { ModalService } from 'src/app/services/modal/modal.service';
 
 @Component({
     selector: 'jw-modal',
@@ -20,8 +20,6 @@ export class ModalComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.modalService.add(this);
-
-        document.body.appendChild(this.element);
 
         this.element.addEventListener('click', (el: any) => {
             if (el.target.className === 'jw-modal') {

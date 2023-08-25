@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
-import { ModalComponent } from '../modal/modal.component';
+import { ModalComponent } from 'src/app/components/modal/modal.component';
 
 @Injectable({ providedIn: 'root' })
 export class ModalService {
-    private modals: ModalComponent[] = [];
+    public modals: ModalComponent[] = [];
 
     add(modal: ModalComponent) {
         // ensure component has a unique id attribute
-        if (!modal.id || this.modals.find(x => x.id === modal.id)) {
-            throw new Error('modal must have a unique id attribute');
+        if (!modal.id) {
+            throw new Error('modal must have a unique id attribute1' );
+        }
+        if (this.modals.find(x => x.id === modal.id)) {
+            throw new Error('modal must have a unique id attribute2' );
         }
 
         // add modal to array of active modals

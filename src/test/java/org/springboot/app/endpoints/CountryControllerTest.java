@@ -81,7 +81,7 @@ public class CountryControllerTest extends AppTestHelper {
 		assertEquals("Neighbor at top", user1.getDescription());
 		CountryDto user2 = objects[1];
 		assertEquals("France", user2.getName());
-		assertEquals("Cardif's headquarter", user2.getDescription());
+		assertEquals("They love perfume", user2.getDescription());
 		CountryDto user3 = objects[2];
 		assertEquals("Brazil", user3.getName());
 		assertEquals("There is too much sun", user3.getDescription());
@@ -168,7 +168,7 @@ public class CountryControllerTest extends AppTestHelper {
 		CountryDto countryDto = response.getBody();
 		assertEquals(HttpStatus.OK, response.getStatusCode());
 		assertEquals("France", countryDto.getName());
-		assertEquals("Cardif's headquarter", countryDto.getDescription());
+		assertEquals("They love perfume", countryDto.getDescription());
 	}
 
 	@Test

@@ -24,6 +24,7 @@
 		<sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 		<sonar.language>java</sonar.language>
 		<sonar.token>sqa_941de45730cf11137ce6bb26e66f68f680917bd1</sonar.token>
+		<frontend.src.dir>${project.basedir}/src/main/js/springbootapp</frontend.src.dir>
 		<frontend.dist.dir>${project.basedir}/src/main/js/springbootapp/dist</frontend.dist.dir>
 		<frontend.app.name>springbootapp</frontend.app.name>		
 	</properties>
@@ -35,12 +36,14 @@
 		    </activation>			
 			<properties>
 				<resources.dir.env>${project.basedir}/src/main/resources-dev</resources.dir.env>
+				<frontend.build.conf>build</frontend.build.conf>
 			</properties>
 		</profile>
 		<profile>
 			<id>prod</id>
 			<properties>
 				<resources.dir.env>${project.basedir}/src/main/resources-prod</resources.dir.env>
+				<frontend.build.conf>prod</frontend.build.conf>
 			</properties>
 		</profile>
 	</profiles>
@@ -129,6 +132,71 @@
 					</execution>					
 				</executions>
 			</plugin>
+			<plugin>
+			    <groupId>org.codehaus.mojo</groupId>
+			    <artifactId>exec-maven-plugin</artifactId>
+			    <executions>
+			      <execution>
+			        <id>npm-install</id>
+			        <phase>generate-resources</phase>
+			        <goals>
+			          <goal>exec</goal>
+			        </goals>
+			        <configuration>
+			          <executable>/home/jmedina/.nvm/versions/node/v18.16.0/bin/npm</executable>
+			          <workingDirectory>${frontend.src.dir}</workingDirectory>
+			          <arguments>
+			            <argument>install</argument>
+			          </arguments>
+			        </configuration>
+			      </execution>
+			      <execution>
+			        <id>npm-build</id>
+			        <phase>generate-resources</phase>
+			        <goals>
+			          <goal>exec</goal>
+			        </goals>
+			        <configuration>
+			          <executable>/home/jmedina/.nvm/versions/node/v18.16.0/bin/npm</executable>
+			          <workingDirectory>${frontend.src.dir}</workingDirectory>
+			          <arguments>
+			            <argument>run-script</argument>
+			            <argument>${frontend.build.conf}</argument>
+			          </arguments>
+			        </configuration>
+			      </execution>
+			      <execution>
+			        <id>npm-test</id>
+			        <phase>test</phase>
+			        <goals>
+			          <goal>exec</goal>
+			        </goals>
+			        <configuration>
+			          <executable>/home/jmedina/.nvm/versions/node/v18.16.0/bin/npm</executable>
+			          <workingDirectory>${frontend.src.dir}</workingDirectory>
+			          <arguments>
+						  <argument>run-script</argument>
+						  <argument>test</argument>
+					  </arguments>
+			        </configuration>
+			      </execution>
+			      <execution>
+			        <id>npm-sonar</id>
+			        <phase>verify</phase>
+			        <goals>
+			          <goal>exec</goal>
+			        </goals>
+			        <configuration>
+			          <executable>/home/jmedina/.nvm/versions/node/v18.16.0/bin/npm</executable>
+			          <workingDirectory>${frontend.src.dir}</workingDirectory>
+			          <arguments>
+						  <argument>run-script</argument>
+						  <argument>sonar</argument>
+					  </arguments>
+			        </configuration>
+			      </execution>
+			    </executions>
+			  </plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
