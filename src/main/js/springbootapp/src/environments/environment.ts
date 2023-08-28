@@ -2,5 +2,5 @@ export const environment = {
     production: false,
     apiKey: 'devKey',
     contextPath: '',
-    backEndUrl: 'http://localhost:8080'
+    backEndUrl: 'https://springbootapp-rxt3ieiwya-uc.a.run.app'
 };
