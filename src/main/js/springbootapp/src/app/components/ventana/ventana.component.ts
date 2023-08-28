@@ -70,8 +70,8 @@ export class VentanaComponent {
   }  
 
   validate() {
-    return ( this.paisEditar.name && this.paisEditar.name !== '' &&
-             this.paisEditar.description && this.paisEditar.description !== '' );
+    return ( this.paisEditar.name && this.paisEditar.name.trim() !== '' &&
+             this.paisEditar.description && this.paisEditar.description.trim() !== '' );
   }
 
   save() {

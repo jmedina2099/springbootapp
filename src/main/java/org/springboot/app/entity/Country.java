@@ -58,8 +58,8 @@ public class Country {
 	private String description;
 
 	public Country(CountryDto dto) {
-		this.name = dto.getName();
-		this.description = dto.getDescription();
+		this.name = dto.getName().trim();
+		this.description = dto.getDescription().trim();
 	}
 
 	@Override
