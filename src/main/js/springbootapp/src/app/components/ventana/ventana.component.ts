@@ -76,7 +76,7 @@ export class VentanaComponent {
 
   save() {
     this.loggerService.log("Guardar" );
-    if( this.paisEditar && ( this.isCreateModal || this.validate() ) ) {
+    if( this.paisEditar && this.validate() ) {
       if( this.isCreateModal ) {
         this.service.createPais(this.paisEditar)
         .subscribe( (value: boolean) => {
